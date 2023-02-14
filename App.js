@@ -62,11 +62,11 @@ export default function App() {
       {showOptions ? (
         <View style={styles.optionsContainer}>
           <View style={styles.optionsRow}>
-            <IconButton icon='refresh' laber='Refresh' onPress={onReset} />
+            <IconButton icon='refresh' label='Refresh' onPress={onReset} />
             <CircleButton onPress={onAddSticker} />
             <IconButton
               icon='save-alt'
-              laber='Save'
+              label='Save'
               onPress={onSaveImageAsync}
             />
           </View>
