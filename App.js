@@ -34,17 +34,21 @@ export default function App() {
           selectedImage={selectedImage}
         />
       </View>
-      <View style={styles.footerContainer}>
-        <Button
-          label={'Choose a photo'}
-          theme='primary'
-          onPress={pickImageAsync}
-        />
-        <Button
-          label={'Do not click me!'}
-          onPress={() => setShowOptions(true)}
-        />
-      </View>
+      {showOptions ? (
+        <View />
+      ) : (
+        <View style={styles.footerContainer}>
+          <Button
+            label={'Choose a photo'}
+            theme='primary'
+            onPress={pickImageAsync}
+          />
+          <Button
+            label={'Do not click me!'}
+            onPress={() => setShowOptions(true)}
+          />
+        </View>
+      )}
       <StatusBar style='auto' />
     </View>
   );
