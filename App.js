@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Button from './components/Button';
 import ImageViewer from './components/ImageViewer';
 import { useState } from 'react';
+import CircleButton from './components/CircleButton';
 
 const PlaceHolderImage = require('./assets/background-image.png');
 
@@ -34,7 +35,7 @@ export default function App() {
         />
       </View>
       {showOptions ? (
-        <View />
+        <CircleButton onPress={() => alert('foca')} />
       ) : (
         <View style={styles.footerContainer}>
           <Button
