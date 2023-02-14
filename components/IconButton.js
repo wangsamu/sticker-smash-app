@@ -1,13 +1,13 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const IconButton = ({ icon, label, onPress }) => {
   return (
     <View>
-      <Pressable style={iconButton} onPress={onPress}>
+      <Pressable style={styles.iconButton} onPress={onPress}>
         <MaterialIcons name={icon} size={24} color='#fff' />
-        <Text style={iconButtonLabelt}>{label}</Text>
+        <Text style={styles.iconButtonLabelt}>{label}</Text>
       </Pressable>
     </View>
   );

@@ -28,7 +28,10 @@ export default function App() {
     }
   };
 
-  const onReset = () => {};
+  const onReset = () => {
+    setSelectedImage(null);
+    setShowOptions(false);
+  };
   const onAddSticker = () => {};
   const onSaveImageAsync = async () => {};
 
@@ -44,7 +47,7 @@ export default function App() {
         <View style={styles.optionsContainer}>
           <View style={styles.optionsRow}>
             <IconButton icon='refresh' laber='Refresh' onPress={onReset} />
-            <CircleButton onPress={() => alert('foca')} />
+            <CircleButton onPress={onAddSticker} />
             <IconButton
               icon='save-alt'
               laber='Save'
@@ -60,7 +63,7 @@ export default function App() {
             onPress={pickImageAsync}
           />
           <Button
-            label={'Do not click me!'}
+            label={'use this picture'}
             onPress={() => setShowOptions(true)}
           />
         </View>
