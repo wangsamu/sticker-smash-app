@@ -5,6 +5,7 @@ import Button from './components/Button';
 import ImageViewer from './components/ImageViewer';
 import { useState } from 'react';
 import CircleButton from './components/CircleButton';
+import IconButton from './components/IconButton';
 
 const PlaceHolderImage = require('./assets/background-image.png');
 
@@ -26,6 +27,11 @@ export default function App() {
       alert('No picture was selected');
     }
   };
+
+  const onReset = () => {};
+  const onAddSticker = () => {};
+  const onSaveImageAsync = async () => {};
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -35,7 +41,17 @@ export default function App() {
         />
       </View>
       {showOptions ? (
-        <CircleButton onPress={() => alert('foca')} />
+        <View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon='refresh' laber='Refresh' onPress={onReset} />
+            <CircleButton onPress={() => alert('foca')} />
+            <IconButton
+              icon='save-alt'
+              laber='Save'
+              onPress={onSaveImageAsync}
+            />
+          </View>
+        </View>
       ) : (
         <View style={styles.footerContainer}>
           <Button
@@ -68,5 +84,13 @@ const styles = StyleSheet.create({
   footerContainer: {
     flex: 1 / 3,
     alignItems: 'center',
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 80,
+  },
+  optionsRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
