@@ -14,23 +14,23 @@ import {
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
-const containerStyle = useAnimatedStyle(() => {
-  return {
-    transform: [
-      {
-        translateX: translateX.value,
-      },
-      {
-        translateY: translateY.value,
-      },
-    ],
-  };
-});
-
 const EmojiSticker = ({ stickerSource, imageSize }) => {
   const scaleImage = useSharedValue(imageSize);
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
+
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
 
   const onDoubleTap = useAnimatedGestureHandler({
     onActive: () => {
