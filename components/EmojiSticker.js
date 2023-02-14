@@ -13,6 +13,8 @@ const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const EmojiSticker = ({ stickerSource, imageSize }) => {
   const scaleImage = useSharedValue(imageSize);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
 
   const onDoubleTap = useAnimatedGestureHandler({
     onActive: () => {
@@ -23,6 +25,16 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
     },
   });
 
+  const onDrag = useAnimatedGestureHandler({
+    onStart: (event, context) => {
+      (context.translateX = translateX.value),
+        (context.translateY = translateY.value);
+    },
+    onActive: (event, context) => {
+      (translateX.value = event.translationX + context.translateX),
+        (translateY.value = event.translationY + context.translateY);
+    },
+  });
   const imageStyle = useAnimatedStyle(() => {
     return {
       width: withSpring(scaleImage.value),
