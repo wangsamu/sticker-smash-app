@@ -6,6 +6,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { TapGestureHandler } from 'react-native-gesture-handler/';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -16,6 +17,7 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
     onActive: () => {
       if (scaleImage.value) {
         scaleImage.value = scaleImage.value * 2;
+        console.log('tapped twice!');
       }
     },
   });
@@ -26,13 +28,16 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
       height: withSpring(scaleImage.value),
     };
   });
+
   return (
     <View style={{ top: -350 }}>
-      <AnimatedImage
-        source={stickerSource}
-        resizeMode='contain'
-        style={{ width: imageSize, height: imageSize }}
-      />
+      <TapGestureHandler onGestureEvent={onDoubleTap} numberOfTaps={2}>
+        <AnimatedImage
+          source={stickerSource}
+          resizeMode='contain'
+          style={[imageStyle, { width: imageSize, height: imageSize }]}
+        />
+      </TapGestureHandler>
     </View>
   );
 };
