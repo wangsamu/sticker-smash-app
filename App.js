@@ -11,6 +11,8 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImageAsync = async () => {
+    const [showOptions, setShowOptions] = useState(false);
+
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
@@ -37,7 +39,7 @@ export default function App() {
           theme='primary'
           onPress={pickImageAsync}
         />
-        <Button label={'Use this photo'} />
+        <Button label={'Do not click me!'} />
       </View>
       <StatusBar style='auto' />
     </View>
