@@ -6,12 +6,14 @@ import ImageViewer from './components/ImageViewer';
 import { useState } from 'react';
 import CircleButton from './components/CircleButton';
 import IconButton from './components/IconButton';
+import EmojiPicker from './components/EmojiPicker';
 
 const PlaceHolderImage = require('./assets/background-image.png');
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,8 +34,14 @@ export default function App() {
     setSelectedImage(null);
     setShowOptions(false);
   };
-  const onAddSticker = () => {};
+  const onAddSticker = () => {
+    setIsModalVisible(true);
+  };
   const onSaveImageAsync = async () => {};
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -69,6 +77,10 @@ export default function App() {
         </View>
       )}
       <StatusBar style='auto' />
+      <EmojiPicker
+        isVisible={isModalVisible}
+        onClose={onModalClose}
+      ></EmojiPicker>
     </View>
   );
 }
