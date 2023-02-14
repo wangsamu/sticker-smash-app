@@ -9,10 +9,9 @@ const PlaceHolderImage = require('./assets/background-image.png');
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showOptions, setShowOptions] = useState(false);
 
   const pickImageAsync = async () => {
-    const [showOptions, setShowOptions] = useState(false);
-
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
