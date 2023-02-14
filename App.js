@@ -21,8 +21,9 @@ export default function App() {
     if (!result.canceled) {
       console.log(result.assets[0].uri);
       setSelectedImage(result.assets[0].uri);
+      setShowOptions(true);
     } else {
-      alert('You did not select any picture!');
+      alert('No picture was selected');
     }
   };
   return (
@@ -39,7 +40,10 @@ export default function App() {
           theme='primary'
           onPress={pickImageAsync}
         />
-        <Button label={'Do not click me!'} />
+        <Button
+          label={'Do not click me!'}
+          onPress={() => setShowOptions(true)}
+        />
       </View>
       <StatusBar style='auto' />
     </View>
