@@ -6,10 +6,26 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { TapGestureHandler } from 'react-native-gesture-handler/';
+import {
+  TapGestureHandler,
+  PanGestureHandler,
+} from 'react-native-gesture-handler/';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedImage = Animated.createAnimatedComponent(Image);
+
+const containerStyle = useAnimatedStyle(() => {
+  return {
+    transform: [
+      {
+        translateX: translateX.value,
+      },
+      {
+        translateY: translateY.value,
+      },
+    ],
+  };
+});
 
 const EmojiSticker = ({ stickerSource, imageSize }) => {
   const scaleImage = useSharedValue(imageSize);
@@ -43,15 +59,17 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
   });
 
   return (
-    <AnimatedView style={{ top: -350 }}>
-      <TapGestureHandler onGestureEvent={onDoubleTap} numberOfTaps={2}>
-        <AnimatedImage
-          source={stickerSource}
-          resizeMode='contain'
-          style={[imageStyle, { width: imageSize, height: imageSize }]}
-        />
-      </TapGestureHandler>
-    </AnimatedView>
+    <PanGestureHandler onGestureEvent={onDrag}>
+      <AnimatedView style={[containerStyle, { top: -350 }]}>
+        <TapGestureHandler onGestureEvent={onDoubleTap} numberOfTaps={2}>
+          <AnimatedImage
+            source={stickerSource}
+            resizeMode='contain'
+            style={[imageStyle, { width: imageSize, height: imageSize }]}
+          />
+        </TapGestureHandler>
+      </AnimatedView>
+    </PanGestureHandler>
   );
 };
 
