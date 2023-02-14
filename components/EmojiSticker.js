@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { TapGestureHandler } from 'react-native-gesture-handler/';
 
+const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 const EmojiSticker = ({ stickerSource, imageSize }) => {
@@ -30,7 +31,7 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
   });
 
   return (
-    <View style={{ top: -350 }}>
+    <AnimatedView style={{ top: -350 }}>
       <TapGestureHandler onGestureEvent={onDoubleTap} numberOfTaps={2}>
         <AnimatedImage
           source={stickerSource}
@@ -38,7 +39,7 @@ const EmojiSticker = ({ stickerSource, imageSize }) => {
           style={[imageStyle, { width: imageSize, height: imageSize }]}
         />
       </TapGestureHandler>
-    </View>
+    </AnimatedView>
   );
 };
 
