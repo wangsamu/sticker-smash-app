@@ -10,33 +10,44 @@ import {
 import React, { useState } from 'react';
 
 const EmojiList = ({ onSelect, onCloseModal }) => {
-  const [emoji] = useState([
-    // require('../assets/images/emoji1.png'),
-    // require('../assets/images/emoji2.png'),
-    // require('../assets/images/emoji3.png'),
-    // require('../assets/images/emoji4.png'),
-    // require('../assets/images/emoji5.png'),
-    // require('../assets/images/emoji6.png'),
-  ]);
+  const emoji = [
+    require('../assets/images/emoji1.png'),
+    require('../assets/images/emoji2.png'),
+    require('../assets/images/emoji3.png'),
+    require('../assets/images/emoji4.png'),
+    require('../assets/images/emoji5.png'),
+    require('../assets/images/emoji6.png'),
+  ];
+
+  const testData = [1, 2, 3, 4, 5, 6];
+
+  //   const [emoji] = useState([
+  //     require('../assets/background-image.png'),
+  //     require('../assets/images/emoji1.png'),
+  //     require('../assets/images/emoji2.png'),
+  //     require('../assets/images/emoji3.png'),
+  //     require('../assets/images/emoji4.png'),
+  //     require('../assets/images/emoji5.png'),
+  //     require('../assets/images/emoji6.png'),
+  //   ]);
+
   return (
-    <View>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={Platform.OS === 'web' ? true : false}
-        data={emoji}
-        contentContainerStyle={styles.listContainer}
-        renderItem={(item, index) => (
-          <Pressable
-            onPress={() => {
-              onSelect(item);
-              onCloseModal();
-            }}
-          >
-            <Image source={item} key={index} style={styles.image} />
-          </Pressable>
-        )}
-      />
-    </View>
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={Platform.OS === 'web' ? true : false}
+      data={emoji}
+      contentContainerStyle={styles.listContainer}
+      renderItem={({ item, index }) => (
+        <Pressable
+          onPress={() => {
+            onSelect(item);
+            onCloseModal();
+          }}
+        >
+          <Image source={item} key={index} style={styles.image} />
+        </Pressable>
+      )}
+    />
   );
 };
 

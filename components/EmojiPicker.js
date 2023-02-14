@@ -7,7 +7,7 @@ const EmojiPicker = ({ isVisible, children, onClose }) => {
     <Modal animationType='slide' transparent={true} visible={isVisible}>
       <View style={styles.modalContent}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>EmojiPicker</Text>
+          <Text style={styles.title}>Choose a sticker</Text>
           <Pressable onPress={onClose}>
             <MaterialIcons name='close' size={22} color='#fff' />
           </Pressable>

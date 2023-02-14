@@ -41,7 +41,7 @@ export default function App() {
   };
   const onSaveImageAsync = async () => {};
 
-  const onModalClose = () => {
+  const onCloseModal = () => {
     setIsModalVisible(false);
   };
 
@@ -79,7 +79,7 @@ export default function App() {
         </View>
       )}
       <StatusBar style='auto' />
-      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+      <EmojiPicker isVisible={isModalVisible} onClose={onCloseModal}>
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onCloseModal} />
       </EmojiPicker>
     </View>
