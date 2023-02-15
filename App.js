@@ -11,6 +11,7 @@ import EmojiList from './components/EmojiList';
 import EmojiSticker from './components/EmojiSticker';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as MediaLibrary from 'expo-media-library';
+import { captureRef } from 'react-native-view-shot';
 
 const PlaceHolderImage = require('./assets/background-image.png');
 
@@ -22,6 +23,8 @@ export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [pickedEmoji, setPickedEmoji] = useState(null);
   const [stickerSize, setStickerSize] = useState(null);
+
+  const imageRef = useRef();
 
   if (status === null) {
     requestPermision();
@@ -49,7 +52,21 @@ export default function App() {
   const onAddSticker = () => {
     setIsModalVisible(true);
   };
-  const onSaveImageAsync = async () => {};
+  const onSaveImageAsync = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if (localUri) {
+        alert('Saved!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onCloseModal = () => {
     setIsModalVisible(false);
@@ -58,13 +75,15 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
-        <ImageViewer
-          placeHolderImageSource={PlaceHolderImage}
-          selectedImage={selectedImage}
-        />
-        {pickedEmoji ? (
-          <EmojiSticker stickerSource={pickedEmoji} imageSize={40} />
-        ) : null}
+        <View ref={imageRef} collapsable={false}>
+          <ImageViewer
+            placeHolderImageSource={PlaceHolderImage}
+            selectedImage={selectedImage}
+          />
+          {pickedEmoji ? (
+            <EmojiSticker stickerSource={pickedEmoji} imageSize={40} />
+          ) : null}
+        </View>
       </View>
       {showOptions ? (
         <View style={styles.optionsContainer}>
