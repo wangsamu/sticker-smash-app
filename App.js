@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import domtoimage from 'dom-to-image';
 import Button from './components/Button';
 import ImageViewer from './components/ImageViewer';
 import { useState } from 'react';
@@ -53,18 +54,36 @@ export default function App() {
     setIsModalVisible(true);
   };
   const onSaveImageAsync = async () => {
-    try {
-      const localUri = await captureRef(imageRef, {
-        height: 440,
-        quality: 1,
-      });
+    if (Platform.OS === 'web') {
+      domtoimage
+        .toJpeg(imageRef.current, {
+          quality: 0.95,
+          width: 320,
+          height: 440,
+        })
+        .then((dataUrl) => {
+          let link = document.createElement('a');
+          link.download = 'sticker-smash.jpeg';
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      try {
+        const localUri = await captureRef(imageRef, {
+          height: 440,
+          quality: 1,
+        });
 
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if (localUri) {
-        alert('Saved!');
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        if (localUri) {
+          alert('Saved!');
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
