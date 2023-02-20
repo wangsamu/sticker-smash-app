@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import domtoimage from 'dom-to-image';
 import Button from './components/Button';
 import ImageViewer from './components/ImageViewer';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import CircleButton from './components/CircleButton';
 import IconButton from './components/IconButton';
 import EmojiPicker from './components/EmojiPicker';
@@ -49,10 +49,12 @@ export default function App() {
   const onReset = () => {
     setSelectedImage(null);
     setShowOptions(false);
+    setPickedEmoji(null)
   };
   const onAddSticker = () => {
     setIsModalVisible(true);
   };
+
   const onSaveImageAsync = async () => {
     if (Platform.OS === 'web') {
       domtoimage
@@ -129,7 +131,7 @@ export default function App() {
           />
         </View>
       )}
-      <StatusBar style='auto' />
+      <StatusBar style='light' />
       <EmojiPicker isVisible={isModalVisible} onClose={onCloseModal}>
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onCloseModal} />
       </EmojiPicker>
